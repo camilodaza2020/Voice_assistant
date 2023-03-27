@@ -3,7 +3,7 @@
 
 -Remember to install an environment in order to avoid problems between installations of the libraries.
 
-- I created the MVP file where once you run it, it should generate an interface or link, enter and test the model.
+-I created the MVP file where once you run it, it should generate an interface or link, enter and test the model.
 
 -This model has not yet conexion to the openai api, but it has good performance for testing.
 

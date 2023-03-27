@@ -1,8 +1,12 @@
 
-# steps
+#Important
 
-# Important created a virtual enviroment for using the code
+-Remember to install an environment in order to avoid problems between installations of the libraries.
 
-# Onces you created the virtual env, install the libraries
+-Create the MVP file where once you run it, it should generate an interface or link, enter and test the model.
 
-# Take into account that this code is standard and can be adjusted to basic needs according to its function, and being standard, adjustments must be made in learning mode, reading voice and other aspects, erp this is the basis of initial production.
+-This model has not yet concexion to the openai api, but it has good performance for testing
+
+-Also the transcript file should generate another interface where you can upload your mp3 file and take the transcript.
+
+I will try still modifing and improving the model !

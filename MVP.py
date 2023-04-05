@@ -32,3 +32,53 @@ iface = gr.Interface(fn=answer_question, inputs=[context_input, question_input],
 iface.launch(share=True, inbrowser=True)
 
 #if you see a link, go and text the model
+
+#_____________________________________________________________________________________________________________________
+
+#Now this code use openai and Lancgchain the model is different
+
+# pip install langchain
+# pip install chromadb
+# pip install python-magic-bin
+# pip install unstructured
+# pip install nltk
+
+import numpy as np
+import os
+import nltk
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import CharacterTextSplitter
+from langchain import OpenAI, VectorDBQA
+from langchain.document_loaders import DirectoryLoader
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning, module='root')
+
+
+os.environ['OPENAI_API_KEY'] = 'Here you should put the KEY of OpenAI'
+
+nltk.download('averaged_perceptron_tagger')
+
+# Your document should be uploaded to Google Colab. You can change this to the path of your uploaded document.
+document_path = 'Here you should put the file with information, route'
+
+
+loader = DirectoryLoader(os.path.dirname(document_path), glob='**/*.txt')
+documents = loader.load()
+documents = [doc.decode('utf-8') for doc in documents]
+
+#Here we divided the total text
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+
+#We use Openai for convert in embeddings
+embeddings = OpenAIEmbeddings(openai_api_key=os.environ['OPENAI_API_KEY'])
+
+#Thisv ariable gets the embeddings and save in store of Langchain
+docsearch = Chroma.from_documents(texts, embeddings)
+qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch)
+query = "who is jared "
+answer = qa.run(query)
+print(answer)
+
+print(docsearch)
